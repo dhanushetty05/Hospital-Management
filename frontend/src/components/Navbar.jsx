@@ -1,85 +1,98 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import { Menu, X, User, LogIn } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Menu, X, Calendar, Phone, User, Home, Stethoscope, Briefcase, Mail } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Doctors', path: '/doctors' },
-    { name: 'Services', path: '/services' },
-    { name: 'Appointments', path: '/appointments' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', path: '/', icon: Home },
+    { name: 'Doctors', path: '/doctors', icon: Stethoscope },
+    { name: 'Services', path: '/services', icon: Briefcase },
+    { name: 'Appointments', path: '/appointments', icon: Calendar },
+    { name: 'Contact', path: '/contact', icon: Mail },
   ];
 
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-white sticky top-0 z-50 py-4 border-b border-gray-100">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex justify-between items-center h-14">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white shadow-lg py-3'
+          : 'bg-white/95 backdrop-blur-sm py-4'
+      }`}
+    >
+      <div className="w-full max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 border border-teal-600 rounded-full flex items-center justify-center">
-               <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-               </svg>
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-teal-600 leading-none">MediCare</h1>
-              <p className="text-[10px] text-gray-500 leading-tight">Healthcare Solutions</p>
+              <h1 className="text-xl font-bold text-gray-900">
+                Medi<span className="text-cyan-600">Care</span>
+              </h1>
+              <p className="text-xs text-gray-500 -mt-1">Healthcare Solutions</p>
             </div>
           </Link>
 
-          {/* Desktop Navigation - Pill Shaped Container */}
-          <div className="hidden md:flex items-center bg-white border border-gray-100 shadow-[0_2px_10px_rgb(0,0,0,0.04)] rounded-full px-2 py-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative px-4 py-2 text-sm font-semibold transition-colors rounded-full ${
-                  isActive(link.path)
-                    ? 'text-teal-700'
-                    : 'text-gray-600 hover:text-teal-600'
-                }`}
-              >
-                {link.name}
-                {isActive(link.path) && (
-                  <motion.div
-                    layoutId="navbar-active"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-teal-500 rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </Link>
-            ))}
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-1">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                    isActive(link.path)
+                      ? 'bg-cyan-50 text-cyan-600'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
+                  <Icon size={18} />
+                  <span>{link.name}</span>
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Action Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Link
-              to="/doctor-login"
-              className="flex items-center space-x-2 px-5 py-2 text-sm font-bold text-gray-700 border-2 border-gray-200 rounded-full hover:border-teal-600 hover:text-teal-600 transition-colors"
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <a
+              href="tel:+911234567890"
+              className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-cyan-600 transition-colors"
             >
-              <User size={16} />
-              <span>Doctor Admin</span>
-            </Link>
+              <Phone size={18} />
+              <span className="font-medium">Emergency</span>
+            </a>
             <Link
-              to="/login"
-              className="flex items-center space-x-2 px-6 py-2.5 text-sm font-bold bg-teal-500 text-white rounded-full hover:bg-teal-600 transition-colors"
+              to="/appointments"
+              className="flex items-center space-x-2 px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all font-medium"
             >
-              <LogIn size={16} />
-              <span>Login</span>
+              <Calendar size={18} />
+              <span>Book Now</span>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-full hover:bg-gray-100 text-gray-600"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -87,44 +100,45 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t mt-0 py-4 px-4 flex flex-col space-y-2"
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`block py-3 px-4 rounded-xl text-base font-medium ${
-                  isActive(link.path)
-                    ? 'bg-teal-50 text-teal-700'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="mt-4 pt-4 border-t space-y-3">
-              <Link
-                to="/doctor-login"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center space-x-2 py-3 text-gray-700 border border-gray-200 rounded-xl font-medium"
-              >
-                <User size={18} />
-                <span>Doctor Admin</span>
-              </Link>
-              <Link
-                to="/login"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center space-x-2 py-3 bg-teal-500 text-white rounded-xl font-medium"
-              >
-                <LogIn size={18} />
-                <span>Login</span>
-              </Link>
+          <div className="lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4 animate-fade-in">
+            <div className="flex flex-col space-y-2">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-all ${
+                      isActive(link.path)
+                        ? 'bg-cyan-50 text-cyan-600'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    <Icon size={20} />
+                    <span>{link.name}</span>
+                  </Link>
+                );
+              })}
+              <div className="pt-4 space-y-2">
+                <a
+                  href="tel:+911234567890"
+                  className="flex items-center justify-center space-x-2 px-4 py-3 border-2 border-cyan-500 text-cyan-600 rounded-lg font-medium"
+                >
+                  <Phone size={18} />
+                  <span>Emergency Call</span>
+                </a>
+                <Link
+                  to="/appointments"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium"
+                >
+                  <Calendar size={18} />
+                  <span>Book Appointment</span>
+                </Link>
+              </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </nav>

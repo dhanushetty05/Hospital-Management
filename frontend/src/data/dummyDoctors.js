@@ -1,0 +1,252 @@
+// Comprehensive dummy doctor data with professional profiles
+export const dummyDoctors = [
+  {
+    _id: '1',
+    name: 'Dr. David Kim',
+    specialization: 'Oncologist',
+    experience: '7 years',
+    rating: 4.5,
+    successRate: '90%',
+    patients: '2k+',
+    qualifications: 'MBBS, DM (Oncology)',
+    location: 'CancerCare Institute',
+    consultationFee: 800,
+    availability: 'Available',
+    about: 'Specialist in chemotherapy, targeted therapy & cancer care.',
+    imageUrl: 'https://img.freepik.com/free-photo/doctor-with-his-arms-crossed-white-background_1368-5790.jpg?w=740',
+    education: ['MBBS - Harvard Medical School', 'DM Oncology - Johns Hopkins'],
+    languages: ['English', 'Korean', 'Hindi'],
+    awards: ['Best Oncologist 2023', 'Excellence in Cancer Care'],
+    timeSlots: ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM']
+  },
+  {
+    _id: '2',
+    name: 'Dr. Emily Rodriguez',
+    specialization: 'Pediatrician',
+    experience: '8 years',
+    rating: 4.8,
+    successRate: '95%',
+    patients: '3.2k+',
+    qualifications: 'MBBS, MD (Pediatrics)',
+    location: 'Children\'s Health Center',
+    consultationFee: 600,
+    availability: 'Available',
+    about: 'Expert in child healthcare, vaccinations & developmental care.',
+    imageUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=740',
+    education: ['MBBS - Stanford University', 'MD Pediatrics - Yale'],
+    languages: ['English', 'Spanish', 'French'],
+    awards: ['Pediatrician of the Year 2024', 'Child Care Excellence Award'],
+    timeSlots: ['10:00 AM', '12:00 PM', '03:00 PM', '05:00 PM']
+  },
+  {
+    _id: '3',
+    name: 'Dr. Kabir Malhotra',
+    specialization: 'Nephrologist',
+    experience: '7 years',
+    rating: 4.6,
+    successRate: '92%',
+    patients: '2.5k+',
+    qualifications: 'MBBS, DM (Nephrology)',
+    location: 'Kidney Care Clinic',
+    consultationFee: 750,
+    availability: 'Available',
+    about: 'Specialist in kidney diseases, dialysis & transplant care.',
+    imageUrl: 'https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740',
+    education: ['MBBS - AIIMS Delhi', 'DM Nephrology - PGI Chandigarh'],
+    languages: ['English', 'Hindi', 'Punjabi'],
+    awards: ['Excellence in Nephrology 2023', 'Best Kidney Specialist'],
+    timeSlots: ['09:30 AM', '11:30 AM', '02:30 PM', '04:30 PM']
+  },
+  {
+    _id: '4',
+    name: 'Dr. Rahul Sharma',
+    specialization: 'Cardiologist',
+    experience: '10 years',
+    rating: 4.9,
+    successRate: '96%',
+    patients: '4k+',
+    qualifications: 'MBBS, DM (Cardiology)',
+    location: 'Heart Care Institute',
+    consultationFee: 900,
+    availability: 'Available',
+    about: 'Expert in heart diseases, interventional cardiology & cardiac care.',
+    imageUrl: 'https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.jpg?w=740',
+    education: ['MBBS - CMC Vellore', 'DM Cardiology - SGPGI Lucknow'],
+    languages: ['English', 'Hindi', 'Bengali'],
+    awards: ['Top Cardiologist 2024', 'Heart Care Excellence Award'],
+    timeSlots: ['08:00 AM', '10:00 AM', '01:00 PM', '03:00 PM']
+  },
+  {
+    _id: '5',
+    name: 'Dr. Rohan Mehta',
+    specialization: 'ENT Specialist',
+    experience: '5 years',
+    rating: 4.0,
+    successRate: '98%',
+    patients: '2.6k+',
+    qualifications: 'MBBS, MS (ENT)',
+    location: 'City ENT Clinic',
+    consultationFee: 600,
+    availability: 'Available',
+    about: 'Sinus, ear infection, tonsils & throat care.',
+    imageUrl: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope_144627-9308.jpg?w=740',
+    education: ['MBBS - KEM Hospital Mumbai', 'MS ENT - Grant Medical College'],
+    languages: ['English', 'Hindi', 'Marathi'],
+    awards: ['Best ENT Surgeon 2023', 'Excellence in Otolaryngology'],
+    timeSlots: ['11:00 AM', '01:00 PM', '03:00 PM', '05:00 PM']
+  },
+  {
+    _id: '6',
+    name: 'Dr. Sarah Johnson',
+    specialization: 'Cardiologist',
+    experience: '9 years',
+    rating: 4.7,
+    successRate: '94%',
+    patients: '3.5k+',
+    qualifications: 'MBBS, MD (Cardiology)',
+    location: 'Advanced Heart Center',
+    consultationFee: 850,
+    availability: 'Available',
+    about: 'Specialist in preventive cardiology, heart failure & arrhythmia management.',
+    imageUrl: 'https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg?w=740',
+    education: ['MBBS - Oxford University', 'MD Cardiology - Cambridge'],
+    languages: ['English', 'German'],
+    awards: ['Cardiology Excellence 2024', 'Women in Medicine Award'],
+    timeSlots: ['09:00 AM', '12:00 PM', '02:00 PM', '04:00 PM']
+  },
+  {
+    _id: '7',
+    name: 'Dr. Priya Patel',
+    specialization: 'Dermatologist',
+    experience: '6 years',
+    rating: 4.8,
+    successRate: '97%',
+    patients: '3k+',
+    qualifications: 'MBBS, MD (Dermatology)',
+    location: 'Skin Care Clinic',
+    consultationFee: 700,
+    availability: 'Available',
+    about: 'Expert in skin diseases, cosmetic dermatology & laser treatments.',
+    imageUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=740',
+    education: ['MBBS - Mumbai University', 'MD Dermatology - KEM Hospital'],
+    languages: ['English', 'Hindi', 'Gujarati'],
+    awards: ['Best Dermatologist 2023', 'Skin Care Excellence'],
+    timeSlots: ['10:00 AM', '01:00 PM', '03:00 PM', '05:00 PM']
+  },
+  {
+    _id: '8',
+    name: 'Dr. Michael Chen',
+    specialization: 'Orthopedic Surgeon',
+    experience: '12 years',
+    rating: 4.9,
+    successRate: '95%',
+    patients: '4.5k+',
+    qualifications: 'MBBS, MS (Orthopedics)',
+    location: 'Bone & Joint Hospital',
+    consultationFee: 950,
+    availability: 'Available',
+    about: 'Specialist in joint replacement, sports injuries & spine surgery.',
+    imageUrl: 'https://img.freepik.com/free-photo/doctor-with-stethoscope-hands-hospital-background_1423-1.jpg?w=740',
+    education: ['MBBS - Peking University', 'MS Orthopedics - Mayo Clinic'],
+    languages: ['English', 'Mandarin', 'Cantonese'],
+    awards: ['Top Orthopedic Surgeon 2024', 'Excellence in Joint Surgery'],
+    timeSlots: ['08:00 AM', '11:00 AM', '02:00 PM', '04:00 PM']
+  },
+  {
+    _id: '9',
+    name: 'Dr. Aisha Khan',
+    specialization: 'Gynecologist',
+    experience: '8 years',
+    rating: 4.7,
+    successRate: '96%',
+    patients: '3.8k+',
+    qualifications: 'MBBS, MD (Obstetrics & Gynecology)',
+    location: 'Women\'s Health Center',
+    consultationFee: 800,
+    availability: 'Available',
+    about: 'Expert in women\'s health, pregnancy care & minimally invasive surgery.',
+    imageUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=740',
+    education: ['MBBS - Lady Hardinge Medical College', 'MD OB-GYN - AIIMS'],
+    languages: ['English', 'Hindi', 'Urdu'],
+    awards: ['Best Gynecologist 2023', 'Women\'s Health Excellence'],
+    timeSlots: ['09:00 AM', '12:00 PM', '03:00 PM', '05:00 PM']
+  },
+  {
+    _id: '10',
+    name: 'Dr. James Wilson',
+    specialization: 'Neurologist',
+    experience: '11 years',
+    rating: 4.8,
+    successRate: '93%',
+    patients: '3.2k+',
+    qualifications: 'MBBS, DM (Neurology)',
+    location: 'Brain & Spine Institute',
+    consultationFee: 1000,
+    availability: 'Available',
+    about: 'Specialist in stroke, epilepsy, Parkinson\'s & neurological disorders.',
+    imageUrl: 'https://img.freepik.com/free-photo/doctor-with-his-arms-crossed-white-background_1368-5790.jpg?w=740',
+    education: ['MBBS - Columbia University', 'DM Neurology - Massachusetts General'],
+    languages: ['English', 'French'],
+    awards: ['Top Neurologist 2024', 'Excellence in Neuroscience'],
+    timeSlots: ['08:30 AM', '11:00 AM', '02:00 PM', '04:30 PM']
+  },
+  {
+    _id: '11',
+    name: 'Dr. Ananya Reddy',
+    specialization: 'Psychiatrist',
+    experience: '7 years',
+    rating: 4.6,
+    successRate: '91%',
+    patients: '2.8k+',
+    qualifications: 'MBBS, MD (Psychiatry)',
+    location: 'Mental Health Clinic',
+    consultationFee: 750,
+    availability: 'Available',
+    about: 'Expert in depression, anxiety, stress management & counseling.',
+    imageUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=740',
+    education: ['MBBS - NIMHANS Bangalore', 'MD Psychiatry - PGIMER'],
+    languages: ['English', 'Hindi', 'Telugu', 'Tamil'],
+    awards: ['Mental Health Excellence 2023', 'Best Psychiatrist Award'],
+    timeSlots: ['10:00 AM', '01:00 PM', '03:00 PM', '06:00 PM']
+  },
+  {
+    _id: '12',
+    name: 'Dr. Robert Martinez',
+    specialization: 'Gastroenterologist',
+    experience: '9 years',
+    rating: 4.7,
+    successRate: '94%',
+    patients: '3.3k+',
+    qualifications: 'MBBS, DM (Gastroenterology)',
+    location: 'Digestive Care Center',
+    consultationFee: 850,
+    availability: 'Available',
+    about: 'Specialist in liver diseases, endoscopy & digestive disorders.',
+    imageUrl: 'https://img.freepik.com/free-photo/doctor-with-stethoscope-hands-hospital-background_1423-1.jpg?w=740',
+    education: ['MBBS - University of Barcelona', 'DM Gastro - Cleveland Clinic'],
+    languages: ['English', 'Spanish', 'Portuguese'],
+    awards: ['Excellence in Gastroenterology 2024', 'Top GI Specialist'],
+    timeSlots: ['09:00 AM', '11:30 AM', '02:30 PM', '05:00 PM']
+  }
+];
+
+// Helper function to get doctors by specialization
+export const getDoctorsBySpecialization = (specialization) => {
+  return dummyDoctors.filter(doc => doc.specialization === specialization);
+};
+
+// Helper function to get top-rated doctors
+export const getTopRatedDoctors = (limit = 6) => {
+  return dummyDoctors
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, limit);
+};
+
+// Helper function to search doctors
+export const searchDoctors = (query) => {
+  const lowerQuery = query.toLowerCase();
+  return dummyDoctors.filter(doc => 
+    doc.name.toLowerCase().includes(lowerQuery) ||
+    doc.specialization.toLowerCase().includes(lowerQuery)
+  );
+};
