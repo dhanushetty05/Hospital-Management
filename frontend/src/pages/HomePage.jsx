@@ -167,25 +167,185 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Stats Section - simplified to match clean UI */}
-      <section className="py-16 bg-teal-600 text-white">
+      {/* Certification Logos Section */}
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4 max-w-[1100px]">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { number: '500+', label: 'Expert Doctors', icon: Users },
-              { number: '10k+', label: 'Happy Patients', icon: Star },
-              { number: '50+', label: 'Services', icon: Award },
-              { number: '24/7', label: 'Support', icon: Clock }
-            ].map((stat, index) => (
-              <div key={index} className="flex flex-col items-center justify-center p-4">
-                <stat.icon className="mb-3 opacity-80" size={32} />
-                <h3 className="text-3xl font-bold mb-1">{stat.number}</h3>
-                <p className="text-teal-100 text-sm font-medium">{stat.label}</p>
+          <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap opacity-70">
+            {/* Placeholder certification logos - replace with actual images */}
+            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+              <div key={i} className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded-full flex items-center justify-center">
+                <Award className="text-gray-400" size={32} />
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <div className="w-full h-px bg-gray-100"></div>
+
+      {/* Medical Team Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 max-w-[1100px]">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Our <span className="text-teal-600">Medical Team</span>
+            </h2>
+            <p className="text-gray-500 text-sm">Book appointments quickly with our verified specialists.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {doctors.length > 0 ? doctors.slice(0, 6).map((doctor) => (
+              <DoctorCard key={doctor._id} doctor={doctor} />
+            )) : (
+              <>
+                <DoctorCard doctor={{ _id: '1', name: 'Dr. David Kim', specialization: 'Oncologist', experience: '7 years', imageUrl: 'https://img.freepik.com/free-photo/pleased-young-female-doctor-wearing-medical-robe-stethoscope-around-neck-standing-with-closed-posture_409827-254.jpg?w=740' }} />
+                <DoctorCard doctor={{ _id: '2', name: 'Dr. Emily Rodriguez', specialization: 'Pediatrician', experience: '8 years', imageUrl: 'https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg?w=740' }} />
+                <DoctorCard doctor={{ _id: '3', name: 'Dr. Kabir Malhotra', specialization: 'Nephrologist', experience: '7 years', imageUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?w=740' }} />
+                <DoctorCard doctor={{ _id: '4', name: 'Dr. Rahul Sharma', specialization: 'Cardiologist', experience: '10 years', imageUrl: 'https://img.freepik.com/free-photo/doctor-with-stethoscope-hands-hospital-background_1423-1.jpg?w=740' }} />
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <div className="w-full h-px bg-gray-100"></div>
+
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-teal-50/30">
+        <div className="container mx-auto px-4 max-w-[1100px]">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-blue-900">Voices of Trust</h2>
+            <p className="text-gray-600 text-sm max-w-2xl mx-auto">
+              Real stories from doctors and patients sharing their positive experiences with our healthcare platform.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Medical Professionals */}
+            <div className="bg-blue-50/50 border-2 border-blue-200 rounded-3xl p-8">
+              <div className="flex items-center space-x-2 mb-6">
+                <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
+                  <Users className="text-white" size={18} />
+                </div>
+                <h3 className="text-xl font-bold text-blue-900">Medical Professionals</h3>
+              </div>
+              <p className="text-sm text-gray-500 italic mb-6">on patient care.</p>
+              
+              <div className="space-y-4">
+                <TestimonialCard 
+                  name="Dr. Robert Martinez"
+                  role="Pediatrician"
+                  text="This platform has streamlined our clinic operations significantly. Patient management is much more organized."
+                  rating={5}
+                />
+                <TestimonialCard 
+                  name="Dr. Amanda Lee"
+                  role="Dermatologist"
+                  text="Excellent platform for managing appointments. Automated reminders reduce no-shows dramatically."
+                  rating={5}
+                />
+                <TestimonialCard 
+                  name="Dr. Sarah Johnson"
+                  role="Cardiologist"
+                  text="The appointment booking system is incredibly efficient. It saves us valuable time and helps us focus."
+                  rating={5}
+                />
+              </div>
+            </div>
+
+            {/* Patients */}
+            <div className="bg-teal-50/50 border-2 border-teal-200 rounded-3xl p-8">
+              <div className="flex items-center space-x-2 mb-6">
+                <div className="w-8 h-8 bg-teal-500 rounded flex items-center justify-center">
+                  <Star className="text-white fill-white" size={18} />
+                </div>
+                <h3 className="text-xl font-bold text-teal-900">Patients</h3>
+              </div>
+              <p className="text-sm text-gray-500 italic mb-6">sharing their experiences.</p>
+              
+              <div className="space-y-4">
+                <TestimonialCard 
+                  name="Michael Chen"
+                  role="Patient"
+                  text="Scheduling appointments has never been easier. The interface is intuitive and reminders are very helpful."
+                  rating={5}
+                />
+                <TestimonialCard 
+                  name="Emily Williams"
+                  role="Patient"
+                  text="Booking appointments online 24/7 is a game-changer. The confirmation system gives me peace of mind."
+                  rating={5}
+                />
+                <TestimonialCard 
+                  name="David Thompson"
+                  role="Patient"
+                  text="The wait times have reduced significantly since using this system."
+                  rating={5}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const DoctorCard = ({ doctor }) => {
+  return (
+    <motion.div 
+      whileHover={{ y: -4 }}
+      className="bg-white rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-50 overflow-hidden p-6 text-center"
+    >
+      <div className="flex justify-center mb-4">
+        <div className="w-24 h-24 rounded-full bg-teal-50 overflow-hidden border-2 border-white shadow-md">
+          {doctor.imageUrl ? (
+            <img src={doctor.imageUrl} alt={doctor.name} className="w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-teal-400">
+              {doctor.name?.charAt(0) || 'D'}
+            </div>
+          )}
+        </div>
+      </div>
+      
+      <h3 className="text-lg font-bold text-gray-800 mb-1">{doctor.name}</h3>
+      <p className="text-teal-500 font-medium text-sm mb-3">{doctor.specialization}</p>
+      
+      <div className="flex items-center justify-center space-x-1 text-xs text-gray-500 mb-4">
+        <Award className="w-3 h-3 text-teal-500" />
+        <span>{doctor.experience || '5+ years'} Experience</span>
+      </div>
+      
+      <Link 
+        to={`/doctors/${doctor._id}`} 
+        className="w-full py-2.5 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition-colors text-sm flex items-center justify-center space-x-1"
+      >
+        <ChevronRight size={14} />
+        <span>Book Now</span>
+      </Link>
+    </motion.div>
+  );
+};
+
+const TestimonialCard = ({ name, role, text, rating }) => {
+  return (
+    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+      <div className="flex items-start space-x-3 mb-3">
+        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+          <span className="text-sm font-bold text-gray-600">{name.charAt(0)}</span>
+        </div>
+        <div className="flex-1">
+          <h4 className="font-bold text-gray-800 text-sm">{name}</h4>
+          <p className="text-xs text-gray-500">{role}</p>
+        </div>
+        <div className="flex space-x-0.5">
+          {[...Array(rating)].map((_, i) => (
+            <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+          ))}
+        </div>
+      </div>
+      <p className="text-sm text-gray-600 italic leading-relaxed">"{text}"</p>
     </div>
   );
 };

@@ -20,9 +20,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Clerk client hooks
 import { useAuth, useUser } from "@clerk/clerk-react";
-import { doctorDetailStyles } from "../assets/dummyStyles";
+import { doctorDetailStyles } from "../../assets/dummyStyles";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 function getScheduleDates(schedule) {
   if (!schedule) return [];
@@ -290,7 +290,7 @@ export default function DoctorDetail() {
         throw new Error("Failed to obtain authentication token.");
       }
 
-      const res = await fetch(`${API_BASE}/api/appointments`, {
+      const res = await fetch(`${API_BASE}/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

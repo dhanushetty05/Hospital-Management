@@ -1,375 +1,236 @@
-# 🚀 Complete Setup Guide - MediCare
+# Frontend Setup Guide
 
-## Step-by-Step Installation Instructions
+## Issues Fixed
 
-### ✅ Step 1: Install Prerequisites
+### 1. Import Path Errors
+- ✅ Fixed `dummyStyles` import paths in `DoctorDetail.jsx` and `ServiceDetailPage.jsx`
+- Changed from `../assets/dummyStyles` to `../../assets/dummyStyles`
 
-#### 1.1 Install Node.js
-- Download from: https://nodejs.org/
-- Recommended: LTS version (v20.x or higher)
-- Verify installation:
-  ```bash
-  node --version
-  npm --version
-  ```
+### 2. Clerk Authentication Setup
+- ✅ Added `ClerkProvider` wrapper in `main.jsx`
+- Now authentication will work properly for appointments and bookings
 
-#### 1.2 Install MongoDB
+### 3. Service Detail Fallback
+- ✅ Removed undefined `servicesData` reference
+- Now properly shows error when service cannot be fetched
 
-**Option A: Local MongoDB (Recommended for Development)**
-- Download from: https://www.mongodb.com/try/download/community
-- Install and start MongoDB:
-  ```bash
-  # Windows (run as service during installation)
-  # Or manually start:
-  mongod
-  ```
+## Environment Setup
 
-**Option B: MongoDB Atlas (Cloud - Free Tier Available)**
-- Sign up at: https://www.mongodb.com/cloud/atlas
-- Create a free cluster
-- Get connection string
-- Whitelist your IP address
+### 1. Frontend Environment Variables
+Create or update `frontend/.env`:
 
-### ✅ Step 2: Setup Backend
-
-```bash
-# Navigate to backend directory
-cd backend
-
-# Install all dependencies
-npm install
-
-# This will install:
-# - express, mongoose, cors, dotenv
-# - bcryptjs, stripe, cloudinary, multer
-# - @clerk/clerk-sdk-node
-# - nodemon (dev dependency)
-```
-
-#### 2.1 Configure Environment Variables
-
-The `.env` file is already created. Update it if needed:
-
-```bash
-# Open backend/.env and verify/update:
-
-# MongoDB - Use one of these:
-MONGODB_URI=mongodb://localhost:27017/medicare  # Local
-# OR
-# MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/medicare  # Atlas
-
-# Server settings (default is fine)
-PORT=5000
-NODE_ENV=development
-FRONTEND_URL=http://localhost:5173
-
-# Optional services (leave empty if not using):
-STRIPE_SECRET_KEY=
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-```
-
-#### 2.2 Start MongoDB
-
-```bash
-# If using local MongoDB, start it:
-mongod
-
-# Keep this terminal open
-```
-
-#### 2.3 Seed Sample Data
-
-```bash
-# In a new terminal, from backend directory:
-npm run seed
-
-# This creates:
-# - 3 sample doctors
-# - 3 sample services
-# - All with realistic data
-```
-
-#### 2.4 Start Backend Server
-
-```bash
-# Development mode (auto-reload on changes):
-npm run dev
-
-# OR Production mode:
-npm start
-
-# You should see:
-# ✅ MongoDB Connected: localhost
-# 📊 Database: medicare
-# 🚀 Server is running on port 5000
-```
-
-**Backend is now running at: http://localhost:5000**
-
-### ✅ Step 3: Setup Frontend
-
-Open a **new terminal** (keep backend running):
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install all dependencies
-npm install
-
-# This will install:
-# - react, react-dom, react-router-dom
-# - axios, @clerk/clerk-react
-# - tailwindcss, lucide-react
-# - react-hot-toast, react-toastify
-# - vite and dev dependencies
-```
-
-#### 3.1 Configure Environment (Optional)
-
-The `.env` file is already created with defaults:
-
-```bash
-# frontend/.env
+```env
 VITE_API_URL=http://localhost:5000/api
-VITE_CLERK_PUBLISHABLE_KEY=  # Optional
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
 ```
 
-#### 3.2 Start Frontend
+**Note:** If you don't have a Clerk account yet:
+1. Go to https://clerk.com
+2. Sign up for a free account
+3. Create a new application
+4. Copy the Publishable Key
+5. Paste it in the `.env` file
 
-```bash
-# From frontend directory:
-npm run dev
+**Without Clerk:** The app will still work, but authentication-dependent features (appointments, bookings) won't function.
 
-# You should see:
-# VITE v7.x.x ready in xxx ms
-# ➜ Local: http://localhost:5173/
+### 2. Backend Environment Variables
+Make sure your `backend/.env` has:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_key
+CLOUDINARY_API_SECRET=your_cloudinary_secret
 ```
 
-**Frontend is now running at: http://localhost:5173**
+## Running the Application
 
-### ✅ Step 4: Test the Application
-
-#### 4.1 Open Browser
-
-Navigate to: **http://localhost:5173**
-
-#### 4.2 Test Features
-
-1. **View Doctors**
-   - Browse the doctors page
-   - See 3 sample doctors
-
-2. **View Services**
-   - Check healthcare services
-   - See 3 sample services
-
-3. **Book Appointment**
-   - Select a doctor
-   - Choose date and time
-   - Fill patient details
-   - Submit (Cash payment works without Stripe)
-
-4. **Doctor Login**
-   - Use credentials:
-     - Email: `dr.rahul@gmail.com`
-     - Password: `123456`
-
-### ✅ Step 5: Setup Admin Panel (Optional)
-
-```bash
-# Open a new terminal
-cd admin
-
-# Install dependencies
-npm install
-
-# Start admin panel
-npm run dev
-
-# Runs on: http://localhost:5174 (or next available port)
-```
-
-## 🎯 Quick Commands Reference
-
-### Backend Commands
+### Start Backend
 ```bash
 cd backend
-npm install          # Install dependencies
-npm run dev          # Start development server
-npm start            # Start production server
-npm run seed         # Seed sample data
+npm install
+npm start
 ```
 
-### Frontend Commands
+Backend should run on: http://localhost:5000
+
+### Start Frontend
 ```bash
 cd frontend
-npm install          # Install dependencies
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
+npm install
+npm run dev
 ```
 
-### Admin Commands
+Frontend should run on: http://localhost:5173
+
+## Testing the Application
+
+### 1. Home Page
+- Visit http://localhost:5173
+- Should see:
+  - Hero section with MediCare+ branding
+  - Certification badges
+  - Services preview
+  - Medical team section
+  - Testimonials section
+  - Updated footer
+
+### 2. Doctors Page
+- Click "Doctors" in navigation
+- Should see list of doctors with:
+  - Circular profile images
+  - Specialization
+  - Experience
+  - Book Now buttons
+
+### 3. Services Page
+- Click "Services" in navigation
+- Should see diagnostic services with:
+  - Service images
+  - Service names
+  - Book Now buttons
+
+### 4. Contact Page
+- Click "Contact" in navigation
+- Should see:
+  - Contact form
+  - Clinic information
+  - Map
+  - WhatsApp integration
+
+### 5. Appointments Page (Requires Clerk)
+- Click "Appointments" in navigation
+- If not signed in: Shows sign-in prompt
+- If signed in: Shows your appointments
+
+## Common Issues & Solutions
+
+### Issue 1: "Failed to resolve import"
+**Solution:** Make sure all dependencies are installed:
 ```bash
-cd admin
-npm install          # Install dependencies
-npm run dev          # Start development server
-```
-
-## 🔍 Verify Installation
-
-### Check Backend
-```bash
-# Test API endpoint:
-curl http://localhost:5000
-
-# Should return:
-# {"success":true,"message":"MediCare API is running",...}
-```
-
-### Check Frontend
-- Open: http://localhost:5173
-- Should see MediCare homepage
-
-### Check Database
-```bash
-# Connect to MongoDB:
-mongosh
-
-# Switch to medicare database:
-use medicare
-
-# Check collections:
-show collections
-
-# Should see: doctors, services, appointments, etc.
-
-# Count doctors:
-db.doctors.countDocuments()
-# Should return: 3
-```
-
-## 🐛 Common Issues & Solutions
-
-### Issue: MongoDB Connection Failed
-
-**Solution:**
-```bash
-# 1. Check if MongoDB is running:
-mongod
-
-# 2. Check connection string in backend/.env
-# 3. For Atlas, whitelist your IP
-```
-
-### Issue: Port 5000 Already in Use
-
-**Solution:**
-```bash
-# Change port in backend/.env:
-PORT=5001
-
-# Update frontend/.env:
-VITE_API_URL=http://localhost:5001/api
-```
-
-### Issue: npm install fails
-
-**Solution:**
-```bash
-# Clear npm cache:
-npm cache clean --force
-
-# Delete node_modules and package-lock.json:
-rm -rf node_modules package-lock.json
-
-# Reinstall:
+cd frontend
 npm install
 ```
 
-### Issue: CORS Error
+### Issue 2: "Cannot connect to backend"
+**Solution:** 
+1. Check backend is running on port 5000
+2. Verify `VITE_API_URL` in frontend/.env
+3. Check backend console for errors
 
+### Issue 3: "Clerk authentication not working"
 **Solution:**
-- Ensure `FRONTEND_URL` in backend/.env matches your frontend URL
-- Default: `http://localhost:5173`
+1. Add your Clerk Publishable Key to frontend/.env
+2. Restart the frontend dev server
+3. Clear browser cache and cookies
 
-### Issue: Cannot find module errors
-
+### Issue 4: "No doctors/services showing"
 **Solution:**
+1. Check backend is connected to MongoDB
+2. Run the seed script: `cd backend && node scripts/seedData.js`
+3. Check backend API endpoints are working
+
+### Issue 5: Linting errors from old components
+**Solution:** These are from unused component folders and can be ignored. To clean them up:
 ```bash
-# Ensure you're in the correct directory
-# Backend modules must be installed in backend/
-# Frontend modules must be installed in frontend/
-
-cd backend && npm install
-cd ../frontend && npm install
+cd frontend/src/components
+# Remove old unused folders (optional)
+rm -rf AppointmentPage/ Certification/ ContactPage/ DoctorsPage/ Footer/ HomeDoctors/ LoginPage/ ServicePage/ Testimonial/
 ```
 
-## 📊 Project Status Check
+## Project Structure
 
-Run these commands to verify everything is working:
-
-```bash
-# 1. Check Backend
-curl http://localhost:5000
-# Expected: JSON response with success: true
-
-# 2. Check Doctors API
-curl http://localhost:5000/api/doctors
-# Expected: JSON array with 3 doctors
-
-# 3. Check Services API
-curl http://localhost:5000/api/services
-# Expected: JSON array with 3 services
-
-# 4. Check Frontend
-# Open browser: http://localhost:5173
-# Expected: MediCare homepage loads
+```
+frontend/
+├── src/
+│   ├── assets/          # Images and styles
+│   ├── components/      # Reusable components
+│   │   ├── Navbar.jsx   # Main navigation (ACTIVE)
+│   │   └── Footer.jsx   # Footer component (ACTIVE)
+│   ├── pages/           # Page components
+│   │   ├── HomePage.jsx
+│   │   ├── DoctorsPage.jsx
+│   │   ├── ServicesPage.jsx
+│   │   ├── ContactPage.jsx
+│   │   ├── AppointmentsPage.jsx
+│   │   ├── DoctorDetail/
+│   │   │   └── DoctorDetail.jsx
+│   │   └── ServiceDetailPage/
+│   │       └── ServiceDetailPage.jsx
+│   ├── App.jsx          # Main app with routes
+│   ├── main.jsx         # Entry point with Clerk
+│   └── index.css        # Global styles
+└── .env                 # Environment variables
 ```
 
-## 🎉 Success!
+## Features Implemented
 
-If all steps completed successfully, you now have:
+### ✅ Home Page
+- Hero section with MediCare+ branding
+- Feature badges (Certified Specialists, 24/7 Availability, etc.)
+- Certification logos section
+- Services preview grid
+- Medical team showcase
+- Testimonials (Medical Professionals & Patients)
+- Updated footer with newsletter
 
-✅ Backend API running on port 5000
-✅ Frontend app running on port 5173  
-✅ MongoDB with sample data
-✅ 3 sample doctors
-✅ 3 sample services
-✅ Full MERN stack working
+### ✅ Doctors Page
+- Doctor listing with search
+- Filter by specialization
+- Doctor cards with images
+- Book appointment functionality
 
-## 🚀 Next Steps
+### ✅ Services Page
+- Service listing with search
+- Service cards with images
+- Book service functionality
 
-1. **Explore the Application**
-   - Browse doctors and services
-   - Book test appointments
-   - Try doctor login
+### ✅ Contact Page
+- Contact form with WhatsApp integration
+- Clinic information
+- Google Maps integration
+- Clinic hours
 
-2. **Optional Integrations**
-   - Setup Stripe for payments
-   - Setup Cloudinary for image uploads
-   - Setup Clerk for authentication
+### ✅ Appointments Page
+- View doctor appointments
+- View service bookings
+- Status tracking
+- Authentication required
 
-3. **Customize**
-   - Add your own doctors
-   - Create new services
-   - Modify styling
+### ✅ Doctor Detail Page
+- Doctor profile with stats
+- Date and time slot selection
+- Patient details form
+- Payment method selection (Cash/Online)
+- Booking confirmation
 
-4. **Deploy**
-   - Deploy backend to Heroku/Railway
-   - Deploy frontend to Vercel/Netlify
-   - Use MongoDB Atlas for production
+### ✅ Service Detail Page
+- Service information
+- Date and time selection
+- Patient details form
+- Payment method selection
+- Booking confirmation
 
-## 📞 Need Help?
+## Next Steps
 
-- Check the main README.md for detailed documentation
-- Review API endpoints in backend/README.md
-- Check console logs for error messages
-- Ensure all environment variables are set correctly
+1. **Add Clerk Key:** Get your Clerk Publishable Key and add it to `.env`
+2. **Seed Data:** Run the backend seed script to populate doctors and services
+3. **Test Booking Flow:** Try booking a doctor appointment and a service
+4. **Customize Content:** Update text, images, and branding as needed
+5. **Deploy:** When ready, deploy to your hosting platform
 
----
+## Support
 
-**Happy Coding! 🎉**
+If you encounter any issues:
+1. Check the browser console for errors
+2. Check the backend console for API errors
+3. Verify all environment variables are set
+4. Make sure MongoDB is connected
+5. Ensure all dependencies are installed
+
+## Design Credits
+
+- Design: Based on provided screenshots
+- Development: MediCare Healthcare Platform
+- Powered by: Hexagon Digital Services

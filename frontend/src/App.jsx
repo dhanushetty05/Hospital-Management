@@ -6,19 +6,9 @@ import HomePage from './pages/HomePage';
 import DoctorsPage from './pages/DoctorsPage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
-
-// Simple placeholder pages
-
-const AppointmentsPage = () => (
-  <div className="min-h-screen bg-gradient-to-br from-teal-50 to-emerald-50 py-16">
-    <div className="container mx-auto px-4">
-      <h1 className="text-4xl font-bold text-center mb-8">My Appointments</h1>
-      <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-        <p className="text-gray-600">No appointments yet. Book your first appointment!</p>
-      </div>
-    </div>
-  </div>
-);
+import AppointmentsPage from './pages/AppointmentsPage';
+import DoctorDetail from './pages/DoctorDetail/DoctorDetail';
+import ServiceDetail from './pages/ServiceDetailPage/ServiceDetailPage';
 
 function App() {
   return (
@@ -31,7 +21,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/doctors" element={<DoctorsPage />} />
+            <Route path="/doctors/:id" element={<DoctorDetail />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:id" element={<ServiceDetail />} />
             <Route path="/appointments" element={<AppointmentsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={

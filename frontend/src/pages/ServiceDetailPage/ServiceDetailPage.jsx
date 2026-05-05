@@ -10,9 +10,9 @@ import {
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import toast, { Toaster } from "react-hot-toast";
-import { serviceDetailStyles, iconSize } from "../assets/dummyStyles";
+import { serviceDetailStyles, iconSize } from "../../assets/dummyStyles";
 
-const DEFAULT_HOST = "http://localhost:4000".replace(/\/$/, "");
+const DEFAULT_HOST = (import.meta.env.VITE_API_URL || "http://localhost:5000/api").replace(/\/$/, "");
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -65,7 +65,7 @@ export default function ServiceDetail() {
     const controller = new AbortController();
 
     const endpoints = [
-      `${DEFAULT_HOST}/api/services/${encodeURIComponent(id)}`,
+      `${DEFAULT_HOST}/services/${encodeURIComponent(id)}`,
     ];
 
     async function tryFetch() {
@@ -128,37 +128,11 @@ export default function ServiceDetail() {
 
       if (!mounted) return;
       console.warn(
-        "All endpoints failed, falling back to local servicesData. Last error:",
+        "All endpoints failed. Last error:",
         lastError,
       );
-      const local =
-        servicesData && servicesData.find((s) => String(s.id) === String(id));
-      if (local) {
-        const cloned = JSON.parse(JSON.stringify(local));
-        if (
-          !cloned.slots ||
-          (Array.isArray(cloned.slots) &&
-            cloned.dates &&
-            cloned.dates.length > 0)
-        ) {
-          const arrSlots = Array.isArray(cloned.slots) ? cloned.slots : [];
-          const slotsMap = {};
-          if (cloned.dates && cloned.dates.length > 0) {
-            cloned.dates.forEach((d) => (slotsMap[d] = arrSlots.slice()));
-          } else {
-            const today = new Date().toISOString().split("T")[0];
-            slotsMap[today] = arrSlots.slice();
-            cloned.dates = [today];
-          }
-          cloned.slots = slotsMap;
-        }
-        setService(cloned);
-        if (cloned.dates && cloned.dates.length > 0)
-          setSelectedDate(cloned.dates[0]);
-        setLoading(false);
-        return;
-      }
-
+      
+      // No local fallback - show error
       setFetchError("Unable to fetch service details from server.");
       setLoading(false);
     }
@@ -336,7 +310,7 @@ export default function ServiceDetail() {
         return;
       }
 
-      const res = await fetch(`${DEFAULT_HOST}/api/service-appointments`, {
+      const res = await fetch(`${DEFAULT_HOST}/service-appointments`, {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
