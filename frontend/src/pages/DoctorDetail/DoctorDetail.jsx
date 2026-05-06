@@ -20,7 +20,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Clerk client hooks
 import { useAuth, useUser } from "@clerk/clerk-react";
-import { doctorDetailStyles } from "../../assets/dummyStyles";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
@@ -338,468 +337,383 @@ export default function DoctorDetail() {
 
   if (loading)
     return (
-      <div className={doctorDetailStyles.loadingContainer}>
-        <div>Loading doctor...</div>
+      <div className="min-h-screen flex items-center justify-center pt-24" style={{ background: 'linear-gradient(to bottom, #e6f7f5 0%, #f0fdf9 50%, #ffffff 100%)' }}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-teal-600 mx-auto mb-4"></div>
+          <div className="text-teal-800 font-semibold">Loading doctor...</div>
+        </div>
       </div>
     );
 
   if (error)
     return (
-      <div className={doctorDetailStyles.errorContainer}>
-        <div className={doctorDetailStyles.errorContent}>
-          <div className={doctorDetailStyles.errorText}>Error</div>
-          <div className={doctorDetailStyles.errorMessage}>{error}</div>
-          <Link to="/doctors" className={doctorDetailStyles.backButton}>
-            <ArrowLeft size={20} />
-            Back to Doctors
-          </Link>
+      <div className="min-h-screen flex items-center justify-center pt-24" style={{ background: 'linear-gradient(to bottom, #e6f7f5 0%, #f0fdf9 50%, #ffffff 100%)' }}>
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="bg-white rounded-3xl shadow-xl p-8 border border-red-200">
+            <div className="text-5xl mb-4">⚠️</div>
+            <div className="text-2xl font-bold text-red-600 mb-2">Error</div>
+            <div className="text-gray-600 mb-6">{error}</div>
+            <Link to="/doctors" className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-colors font-semibold">
+              <ArrowLeft size={20} />
+              Back to Doctors
+            </Link>
+          </div>
         </div>
       </div>
     );
 
   if (!doctor)
     return (
-      <div className={doctorDetailStyles.notFoundContainer}>
-        <div className={doctorDetailStyles.notFoundContent}>
-          <div className={doctorDetailStyles.notFoundEmoji}>😷</div>
-          <h1 className={doctorDetailStyles.notFoundTitle}>Doctor Not Found</h1>
-          <Link to="/doctors" className={doctorDetailStyles.backButton}>
-            <ArrowLeft size={20} />
-            Back to Doctors
-          </Link>
+      <div className="min-h-screen flex items-center justify-center pt-24" style={{ background: 'linear-gradient(to bottom, #e6f7f5 0%, #f0fdf9 50%, #ffffff 100%)' }}>
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="bg-white rounded-3xl shadow-xl p-8 border border-teal-200">
+            <div className="text-6xl mb-4">😷</div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-6">Doctor Not Found</h1>
+            <Link to="/doctors" className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-colors font-semibold">
+              <ArrowLeft size={20} />
+              Back to Doctors
+            </Link>
+          </div>
         </div>
       </div>
     );
 
   return (
-    <div className={doctorDetailStyles.pageContainer}>
+    <div className="min-h-screen pt-24 pb-12" style={{ background: 'linear-gradient(to bottom, #e6f7f5 0%, #f0fdf9 50%, #ffffff 100%)' }}>
       <ToastContainer />
       {/* Header */}
-      <div className={doctorDetailStyles.headerContainer}>
-        <div className={doctorDetailStyles.headerContent}>
-          <div className={doctorDetailStyles.headerFlex}>
-            <Link to="/doctors" className={doctorDetailStyles.headerBackButton}>
-              <ArrowLeft size={18} />
-              <span className={doctorDetailStyles.headerBackButtonText}>
-                Back
-              </span>
-            </Link>
+      <div className="w-full max-w-7xl mx-auto px-4 mb-6">
+        <div className="flex items-center justify-between">
+          <Link to="/doctors" className="flex items-center gap-2 text-teal-600 hover:text-teal-700 font-semibold">
+            <ArrowLeft size={20} />
+            <span>Back</span>
+          </Link>
 
-            <div className="flex items-center gap-3">
-              <h1 className={doctorDetailStyles.headerTitle}>Doctor Profile</h1>
-            </div>
+          <h1 className="text-3xl font-bold text-teal-800">Doctor Profile</h1>
 
-            <div className={doctorDetailStyles.headerRatingContainer}>
-              <Star className={doctorDetailStyles.headerRatingIcon} size={18} />
-              <span className={doctorDetailStyles.headerRatingText}>
-                {doctor.rating}
-              </span>
-            </div>
+          <div className="flex items-center gap-2 bg-yellow-50 px-3 py-1.5 rounded-full">
+            <Star className="text-yellow-500 fill-yellow-500" size={18} />
+            <span className="font-bold text-gray-900">{doctor.rating}</span>
           </div>
         </div>
       </div>
-      <div
-        className={`${doctorDetailStyles.mainContent} ${
-          isVisible
-            ? doctorDetailStyles.visibleState
-            : doctorDetailStyles.hiddenState
-        }`}
-      >
+      <div className={`w-full max-w-7xl mx-auto px-4 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         {/* profile card */}
-        <div className={doctorDetailStyles.profileCard}>
-          <div className={doctorDetailStyles.profileGrid}>
-            <div className={doctorDetailStyles.leftColumn}>
-              <div className={doctorDetailStyles.avatarContainer}>
-                <div className={doctorDetailStyles.avatarGlow}></div>
-
-                <img
-                  src={
-                    doctor.imageUrl || doctor.image || "/placeholder-doctor.jpg"
-                  }
-                  alt={doctor.name}
-                  className={doctorDetailStyles.avatarImage}
-                  style={{ objectPosition: "center" }}
-                />
+        <div className="bg-white rounded-3xl shadow-xl p-8 mb-8 border border-teal-100">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-teal-400 rounded-full blur-2xl opacity-30"></div>
+                <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-teal-500 shadow-xl">
+                  <img
+                    src={doctor.imageUrl || doctor.image || "/placeholder-doctor.jpg"}
+                    alt={doctor.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
-              <div className={doctorDetailStyles.statsGrid}>
-                <div className={doctorDetailStyles.statBox}>
-                  <Heart
-                    className={`${doctorDetailStyles.statIcon} ${doctorDetailStyles.heartIcon}`}
-                  />
-                  <div className={doctorDetailStyles.statValue}>
-                    {doctor.success}%
-                  </div>
-                  <div className={doctorDetailStyles.statLabel}>Success</div>
+              <div className="grid grid-cols-3 gap-3 w-full">
+                <div className="bg-red-50 rounded-2xl p-3 text-center">
+                  <Heart className="w-6 h-6 text-red-500 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-gray-900">{doctor.success}%</div>
+                  <div className="text-xs text-gray-600">Success</div>
                 </div>
-                <div className={doctorDetailStyles.statBox}>
-                  <Award
-                    className={`${doctorDetailStyles.statIcon} ${doctorDetailStyles.awardIcon}`}
-                  />
-                  <div className={doctorDetailStyles.statValue}>
-                    {doctor.experience} Years
-                  </div>
-                  <div className={doctorDetailStyles.statLabel}>Experience</div>
+                <div className="bg-blue-50 rounded-2xl p-3 text-center">
+                  <Award className="w-6 h-6 text-blue-500 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-gray-900">{doctor.experience} Years</div>
+                  <div className="text-xs text-gray-600">Experience</div>
                 </div>
-                <div className={doctorDetailStyles.statBox}>
-                  <Users
-                    className={`${doctorDetailStyles.statIcon} ${doctorDetailStyles.usersIcon}`}
-                  />
-                  <div className={doctorDetailStyles.statValue}>
-                    {doctor.patients}
-                  </div>
-                  <div className={doctorDetailStyles.statLabel}>Patients</div>
+                <div className="bg-green-50 rounded-2xl p-3 text-center">
+                  <Users className="w-6 h-6 text-green-500 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-gray-900">{doctor.patients}</div>
+                  <div className="text-xs text-gray-600">Patients</div>
                 </div>
               </div>
             </div>
 
             {/* RIGHT */}
-            <div className={doctorDetailStyles.rightColumn}>
-              <div className="space-y-3">
-                <h1 className={doctorDetailStyles.doctorName}>{doctor.name}</h1>
-                <div className={doctorDetailStyles.specializationBadge}>
-                  <Zap className={doctorDetailStyles.badgeIcon} />
-                  {doctor.specialization ||
-                    doctor.speciality ||
-                    doctor.specialization}
+            <div className="md:col-span-2 space-y-6">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-3">{doctor.name}</h1>
+                <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full font-semibold">
+                  <Zap className="w-4 h-4" />
+                  {doctor.specialization || doctor.speciality}
                 </div>
               </div>
 
-              <div className={doctorDetailStyles.infoGrid}>
-                <div className={doctorDetailStyles.infoItem}>
-                  <GraduationCap className={doctorDetailStyles.infoIcon} />
-                  <div>
-                    <div className={doctorDetailStyles.infoLabel}>
-                      Qualifications
-                    </div>
-                    <div className={doctorDetailStyles.infoValue}>
-                      {doctor.qualifications}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
+                  <div className="flex items-start gap-3">
+                    <GraduationCap className="w-5 h-5 text-teal-600 mt-1" />
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1">Qualifications</div>
+                      <div className="text-sm font-semibold text-gray-900">{doctor.qualifications}</div>
                     </div>
                   </div>
                 </div>
 
-                <div className={doctorDetailStyles.infoItem}>
-                  <MapPin className={doctorDetailStyles.infoIcon} />
-                  <div>
-                    <div className={doctorDetailStyles.infoLabel}>Location</div>
-                    <div className={doctorDetailStyles.infoValue}>
-                      {doctor.location}
+                <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-teal-600 mt-1" />
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1">Location</div>
+                      <div className="text-sm font-semibold text-gray-900">{doctor.location}</div>
                     </div>
                   </div>
                 </div>
 
-                <div className={doctorDetailStyles.infoItem}>
-                  <Clock className={doctorDetailStyles.infoIcon} />
-                  <div>
-                    <div className={doctorDetailStyles.infoLabel}>
-                      Consultation Fee
+                <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-teal-600 mt-1" />
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1">Consultation Fee</div>
+                      <div className="text-lg font-bold text-red-600">₹{fee}</div>
                     </div>
-                    <div className={doctorDetailStyles.feeValue}>₹{fee}</div>
                   </div>
                 </div>
 
-                <div className={doctorDetailStyles.infoItem}>
-                  <Shield className={doctorDetailStyles.infoIcon} />
-                  <div>
-                    <div className={doctorDetailStyles.infoLabel}>
-                      Availability
-                    </div>
-                    <div className={doctorDetailStyles.infoValue}>
-                      {doctor.availability === "Available" || doctor.available
-                        ? "Available"
-                        : "Available Soon"}
+                <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
+                  <div className="flex items-start gap-3">
+                    <Shield className="w-5 h-5 text-teal-600 mt-1" />
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1">Availability</div>
+                      <div className="text-sm font-semibold text-green-600">
+                        {doctor.availability === "Available" || doctor.available ? "Available" : "Available Soon"}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className={doctorDetailStyles.aboutContainer}>
-                <div className={doctorDetailStyles.aboutHeader}>
-                  <BadgeInfo className={doctorDetailStyles.aboutIcon} />
-                  <h3 className={doctorDetailStyles.aboutTitle}>
-                    About Doctor
-                  </h3>
+              <div className="bg-teal-50 rounded-2xl p-5 border border-teal-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <BadgeInfo className="w-5 h-5 text-teal-600" />
+                  <h3 className="text-lg font-bold text-teal-800">About Doctor</h3>
                 </div>
-                <p className={doctorDetailStyles.aboutText}>
-                  {doctor.about || doctor.bio}
-                </p>
+                <p className="text-gray-700 text-sm leading-relaxed">{doctor.about || doctor.bio}</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* APPOINTMENT */}
-        <div className={doctorDetailStyles.appointmentContainer}>
-          <div className={doctorDetailStyles.appointmentContent}>
-            <div className={doctorDetailStyles.appointmentHeader}>
-              <CalendarCheck className={doctorDetailStyles.appointmentIcon} />
-              <h2 className={doctorDetailStyles.appointmentTitle}>
-                Book Your Appointment
-              </h2>
-            </div>
+        <div className="bg-white rounded-3xl shadow-xl p-8 border border-teal-100">
+          <div className="flex items-center gap-3 mb-8">
+            <CalendarCheck className="w-7 h-7 text-teal-600" />
+            <h2 className="text-2xl font-bold text-teal-800">Book Your Appointment</h2>
+          </div>
 
-            <div className={doctorDetailStyles.appointmentGrid}>
-              {/* LEFT COLUMN */}
-              <div className={doctorDetailStyles.dateSection}>
-                <h3 className={doctorDetailStyles.dateTitle}>
-                  <CalendarCheck className={doctorDetailStyles.dateTitleIcon} />{" "}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* LEFT COLUMN */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900 mb-4">
+                  <CalendarCheck className="w-5 h-5 text-teal-600" />
                   Select Date
                 </h3>
 
-                <div className={doctorDetailStyles.dateScrollContainer}>
-                  <div className={doctorDetailStyles.dateButtonsContainer}>
+                <div className="overflow-x-auto pb-2">
+                  <div className="flex gap-3 min-w-max">
                     {next7.map((date) => {
-                      const isSelected =
-                        selectedDate?.toDateString() === date.toDateString();
+                      const isSelected = selectedDate?.toDateString() === date.toDateString();
                       return (
                         <button
                           key={date.toISOString()}
                           onClick={() => setSelectedDate(date)}
-                          className={`${doctorDetailStyles.dateButton} ${
+                          className={`flex flex-col items-center px-5 py-3 rounded-2xl border-2 transition-all min-w-[80px] ${
                             isSelected
-                              ? doctorDetailStyles.dateButtonSelected
-                              : doctorDetailStyles.dateButtonUnselected
+                              ? 'bg-teal-500 border-teal-500 text-white shadow-lg'
+                              : 'bg-white border-gray-200 text-gray-700 hover:border-teal-300'
                           }`}
                         >
-                          <div className={doctorDetailStyles.dateContent}>
-                            <div className={doctorDetailStyles.dateWeekday}>
-                              {date.toLocaleDateString("en-US", {
-                                weekday: "short",
-                              })}
-                            </div>
-                            <div className={doctorDetailStyles.dateDay}>
-                              {date.getDate()}
-                            </div>
-                            <div className={doctorDetailStyles.dateMonth}>
-                              {date.toLocaleDateString("en-US", {
-                                month: "short",
-                              })}
-                            </div>
+                          <div className={`text-xs font-medium mb-1 ${isSelected ? 'text-teal-100' : 'text-gray-500'}`}>
+                            {date.toLocaleDateString("en-US", { weekday: "short" })}
+                          </div>
+                          <div className="text-2xl font-bold mb-1">{date.getDate()}</div>
+                          <div className={`text-xs ${isSelected ? 'text-teal-100' : 'text-gray-500'}`}>
+                            {date.toLocaleDateString("en-US", { month: "short" })}
                           </div>
                         </button>
                       );
                     })}
                   </div>
                 </div>
-
-                {/* PATIENT FORM */}
-                <div className={doctorDetailStyles.patientForm}>
-                  <h3 className={doctorDetailStyles.patientFormTitle}>
-                    Patient Details
-                  </h3>
-
-                  <div className={doctorDetailStyles.patientFormGrid}>
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      className={doctorDetailStyles.formInput}
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                    />
-
-                    <input
-                      type="number"
-                      placeholder="Age"
-                      className={doctorDetailStyles.formInput}
-                      value={formData.age}
-                      onChange={(e) =>
-                        setFormData({ ...formData, age: e.target.value })
-                      }
-                    />
-
-                    <input
-                      type="tel"
-                      inputMode="numeric"
-                      pattern="\d{10}"
-                      maxLength={10}
-                      placeholder="Mobile Number (10 digits)"
-                      className={doctorDetailStyles.formInput}
-                      value={formData.mobile}
-                      onChange={(e) => handleMobileChange(e.target.value)}
-                      onPaste={handleMobilePaste}
-                    />
-
-                    <select
-                      className={doctorDetailStyles.formSelect}
-                      value={formData.gender}
-                      onChange={(e) =>
-                        setFormData({ ...formData, gender: e.target.value })
-                      }
-                    >
-                      <option value="">Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-
-                    <input
-                      type="email"
-                      placeholder="Email (optional - for receipts)"
-                      className={doctorDetailStyles.emailInput}
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
               </div>
 
-              {/* RIGHT COLUMN */}
-              <div className={doctorDetailStyles.timeSlotsSection}>
-                <h3 className={doctorDetailStyles.timeSlotsTitle}>
-                  <Clock className={doctorDetailStyles.timeSlotsIcon} />{" "}
+              <div>
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900 mb-4">
+                  <Clock className="w-5 h-5 text-teal-600" />
                   Available Time Slots
                 </h3>
 
-                <div className={doctorDetailStyles.timeSlotsContainer}>
+                <div className="grid grid-cols-3 gap-2">
                   {slots.length === 0 && (
-                    <p className={doctorDetailStyles.noSlotsMessage}>
-                      No time slots for this date.
-                    </p>
+                    <p className="col-span-3 text-center text-gray-500 py-4">No time slots for this date.</p>
                   )}
 
                   {slots.map((slot) => (
                     <button
                       key={slot}
                       onClick={() => setSelectedSlot(slot)}
-                      className={`${doctorDetailStyles.timeSlotButton} ${
+                      className={`flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border-2 font-medium text-sm transition-all ${
                         selectedSlot === slot
-                          ? doctorDetailStyles.timeSlotButtonSelected
-                          : doctorDetailStyles.timeSlotButtonUnselected
+                          ? 'bg-teal-500 border-teal-500 text-white shadow-md'
+                          : 'bg-white border-gray-200 text-gray-700 hover:border-teal-300'
                       }`}
                     >
-                      <div className={doctorDetailStyles.timeSlotContent}>
-                        <Clock className={doctorDetailStyles.timeSlotIcon} />
-                        <span>{slot}</span>
-                      </div>
+                      <Clock className="w-4 h-4" />
+                      <span>{slot}</span>
                     </button>
                   ))}
                 </div>
+              </div>
 
-                {/* SUMMARY */}
-                <div className={doctorDetailStyles.summaryContainer}>
-                  <div className={doctorDetailStyles.summaryItem}>
-                    <div className={doctorDetailStyles.summaryRow}>
-                      <span className={doctorDetailStyles.summaryLabel}>
-                        Selected Doctor:
-                      </span>
-                      <span className={doctorDetailStyles.summaryValue}>
-                        {doctor?.name || "—"}
-                      </span>
-                    </div>
+              {/* PATIENT FORM */}
+              <div className="bg-teal-50 rounded-2xl p-5 border border-teal-200">
+                <h3 className="text-lg font-bold text-teal-800 mb-4">Patient Details</h3>
 
-                    <div className={doctorDetailStyles.summaryRow}>
-                      <span className={doctorDetailStyles.summaryLabel}>
-                        Doctor Speciality:
-                      </span>
-                      <span className={doctorDetailStyles.summaryValue}>
-                        {doctor?.specialization || doctor?.speciality || "—"}
-                      </span>
-                    </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    className="px-4 py-2.5 border-2 border-teal-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none text-sm"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
 
-                    <div className={doctorDetailStyles.summaryRow}>
-                      <span className={doctorDetailStyles.summaryLabel}>
-                        Selected Date:
-                      </span>
-                      <span className={doctorDetailStyles.summaryValue}>
-                        {selectedDate
-                          ? selectedDate.toLocaleDateString("en-US", {
-                              weekday: "long",
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            })
-                          : "Not selected"}
-                      </span>
-                    </div>
+                  <input
+                    type="number"
+                    placeholder="Age"
+                    className="px-4 py-2.5 border-2 border-teal-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none text-sm"
+                    value={formData.age}
+                    onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                  />
 
-                    <div className={doctorDetailStyles.summaryRow}>
-                      <span className={doctorDetailStyles.summaryLabel}>
-                        Selected Time:
-                      </span>
-                      <span className={doctorDetailStyles.summaryValue}>
-                        {selectedSlot || "Not selected"}
-                      </span>
-                    </div>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="\d{10}"
+                    maxLength={10}
+                    placeholder="Mobile Number (10 digits)"
+                    className="px-4 py-2.5 border-2 border-teal-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none text-sm"
+                    value={formData.mobile}
+                    onChange={(e) => handleMobileChange(e.target.value)}
+                    onPaste={handleMobilePaste}
+                  />
 
-                    <div className={doctorDetailStyles.summaryRow}>
-                      <span className={doctorDetailStyles.summaryLabel}>
-                        Consultation Fee:
-                      </span>
-                      <span className={doctorDetailStyles.feeDisplay}>
-                        ₹{fee}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* PAYMENT METHOD SELECTOR */}
-                  <div className={doctorDetailStyles.paymentContainer}>
-                    <label className={doctorDetailStyles.paymentLabel}>
-                      Payment:
-                    </label>
-                    <div className={doctorDetailStyles.paymentOptions}>
-                      <label
-                        className={`${doctorDetailStyles.paymentOption} ${
-                          paymentMethod === "Cash"
-                            ? doctorDetailStyles.paymentOptionSelected
-                            : doctorDetailStyles.paymentOptionUnselected
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="Cash"
-                          checked={paymentMethod === "Cash"}
-                          onChange={() => setPaymentMethod("Cash")}
-                          className={doctorDetailStyles.paymentRadio}
-                        />
-                        Cash
-                      </label>
-                      <label
-                        className={`${doctorDetailStyles.paymentOption} ${
-                          paymentMethod === "Online"
-                            ? doctorDetailStyles.paymentOptionSelected
-                            : doctorDetailStyles.paymentOptionUnselected
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="Online"
-                          checked={paymentMethod === "Online"}
-                          onChange={() => setPaymentMethod("Online")}
-                          className={doctorDetailStyles.paymentRadio}
-                        />
-                        Online
-                      </label>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleBooking}
-                    disabled={!selectedDate || !selectedSlot || isSubmitting}
-                    className={`${doctorDetailStyles.bookingButton} ${
-                      !selectedDate || !selectedSlot || isSubmitting
-                        ? doctorDetailStyles.bookingButtonDisabled
-                        : doctorDetailStyles.bookingButtonEnabled
-                    }`}
+                  <select
+                    className="px-4 py-2.5 border-2 border-teal-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none text-sm bg-white"
+                    value={formData.gender}
+                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                   >
-                    <div className={doctorDetailStyles.bookingButtonContent}>
-                      <Phone className={doctorDetailStyles.bookingIcon} />
-                      <span>
-                        {isSubmitting ? "Booking..." : "Confirm Booking"}
-                      </span>
-                    </div>
-                  </button>
+                    <option value="">Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+
+                  <input
+                    type="email"
+                    placeholder="Email (optional - for receipts)"
+                    className="col-span-2 px-4 py-2.5 border-2 border-teal-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none text-sm"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  />
                 </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN - SUMMARY */}
+            <div className="space-y-6">
+              <div className="bg-gradient-to-br from-teal-50 to-blue-50 rounded-2xl p-6 border-2 border-teal-200 sticky top-24">
+                <h3 className="text-lg font-bold text-teal-800 mb-4">Booking Summary</h3>
+
+                <div className="space-y-3 mb-5">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Selected Doctor:</span>
+                    <span className="font-semibold text-gray-900">{doctor?.name || "—"}</span>
+                  </div>
+
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Doctor Speciality:</span>
+                    <span className="font-semibold text-gray-900">{doctor?.specialization || doctor?.speciality || "—"}</span>
+                  </div>
+
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Selected Date:</span>
+                    <span className="font-semibold text-gray-900">
+                      {selectedDate
+                        ? selectedDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+                        : "Not selected"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Selected Time:</span>
+                    <span className="font-semibold text-gray-900">{selectedSlot || "Not selected"}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center pt-3 border-t-2 border-teal-200">
+                    <span className="text-gray-600 font-medium">Consultation Fee:</span>
+                    <span className="text-2xl font-bold text-red-600">₹{fee}</span>
+                  </div>
+                </div>
+
+                {/* PAYMENT METHOD SELECTOR */}
+                <div className="mb-5">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Payment:</label>
+                  <div className="flex gap-3">
+                    <label className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 cursor-pointer transition-all ${
+                      paymentMethod === "Cash"
+                        ? 'bg-teal-500 border-teal-500 text-white'
+                        : 'bg-white border-gray-300 text-gray-700 hover:border-teal-300'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="payment"
+                        value="Cash"
+                        checked={paymentMethod === "Cash"}
+                        onChange={() => setPaymentMethod("Cash")}
+                        className="hidden"
+                      />
+                      Cash
+                    </label>
+                    <label className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 cursor-pointer transition-all ${
+                      paymentMethod === "Online"
+                        ? 'bg-teal-500 border-teal-500 text-white'
+                        : 'bg-white border-gray-300 text-gray-700 hover:border-teal-300'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="payment"
+                        value="Online"
+                        checked={paymentMethod === "Online"}
+                        onChange={() => setPaymentMethod("Online")}
+                        className="hidden"
+                      />
+                      Online
+                    </label>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleBooking}
+                  disabled={!selectedDate || !selectedSlot || isSubmitting}
+                  className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-base transition-all ${
+                    !selectedDate || !selectedSlot || isSubmitting
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-teal-600 text-white hover:bg-teal-700 shadow-lg hover:shadow-xl'
+                  }`}
+                >
+                  <Phone className="w-5 h-5" />
+                  <span>{isSubmitting ? "Booking..." : "Confirm Booking"}</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 }
