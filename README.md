@@ -1,7 +1,7 @@
 # 🏥 MediCare - Healthcare Appointment System
 
 A complete MERN stack healthcare appointment booking system with doctor management, service booking, and payment integration.
-
+Platform fir the Hospital Management
 ## 📋 Features
 
 - 👨‍⚕️ **Doctor Management** - Complete CRUD operations for doctors
